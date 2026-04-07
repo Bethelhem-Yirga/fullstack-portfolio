@@ -3,14 +3,13 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer';
 import Tilt from 'react-parallax-tilt';
 import { ReactTyped } from 'react-typed'; // Changed this line
+import emailjs from '@emailjs/browser';
 import { 
   FaSun, FaMoon, FaDownload, FaGithub, FaLinkedin, FaEnvelope, 
-  FaTwitter, FaCode, FaServer, FaDatabase, FaCloud,
+ FaCode, FaServer, FaDatabase, FaCloud,
   FaArrowUp, FaHeart, FaStar, FaBriefcase,
-  FaAward, FaLaptopCode, FaUsers, FaRocket, FaTools, FaPaintBrush
+  FaLaptopCode, FaUsers, FaRocket, FaTools, FaPaintBrush
 } from 'react-icons/fa';
-import { SiLeetcode } from 'react-icons/si';
-import emailjs from 'emailjs-com';
 import './App.css';
 
 function App() {
@@ -18,7 +17,12 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+  }, []);
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add('dark-mode');
@@ -51,8 +55,6 @@ function App() {
       <Experience />
       <Projects />
       <Stats />
-      <Testimonials />
-      <Blog />
       <Contact />
       <Footer />
       <AnimatePresence>
@@ -115,7 +117,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        {'<DevPortfolio />'}
+        {'<Bety/>'}
       </motion.div>
 
       <div className={`nav-links ${isOpen ? 'active' : ''}`}>
@@ -159,10 +161,9 @@ const Hero = () => {
   };
 
   const socialLinks = [
-    { icon: <FaGithub />, url: "https://github.com/yourusername", color: "#333" },
-    { icon: <FaLinkedin />, url: "https://linkedin.com/in/yourprofile", color: "#0077b5" },
-    { icon: <FaTwitter />, url: "https://twitter.com/yourusername", color: "#1DA1F2" },
-    { icon: <SiLeetcode />, url: "https://leetcode.com/yourusername", color: "#FFA116" },
+    { icon: <FaGithub />, url: "https://github.com/Bethelhem-Yirga", color: "#333" },
+    { icon: <FaLinkedin />, url: "https://www.linkedin.com/in/bethelhem-yirga", color: "#0077b5" },
+    { icon: <FaEnvelope />, url: "mailto:bethelhemyirga3@gmail.com", color: "#1DA1F2" },
   ];
 
   return (
@@ -198,7 +199,7 @@ const Hero = () => {
             animate={inView ? { scale: 1 } : {}}
             transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
           >
-            John <span className="highlight">Doe</span>
+            Bethelhem <span className="highlight">Yirga</span>
           </motion.h1>
           
           <motion.div 
@@ -210,10 +211,12 @@ const Hero = () => {
             <ReactTyped
               strings={[
                 'Full-Stack Developer ✨',
-                'MERN Stack Expert 🚀',
                 'Problem Solver 💡',
                 'Tech Enthusiast 💻',
-                'Open Source Contributor 🌟'
+                'Lifelong Learner 📚',
+                'and a Coffee Lover ☕',
+                'Always Coding, Always Improving 🔥',
+                'Let\'s Build Something Amazing Together! 🤝'
               ]}
               typeSpeed={50}
               backSpeed={30}
@@ -284,13 +287,14 @@ const Hero = () => {
         >
           <div className="image-wrapper">
             <div className="image-border"></div>
-            <img src="https://via.placeholder.com/400x400" alt="Profile" />
+            <img src="img/photo_5913237916199095908_y.jpg" alt="Profile" />
             <div className="floating-card card1">
               <FaCode /> 10+ Projects
             </div>
             <div className="floating-card card2">
-              <FaUsers /> 50+ Clients
+              <FaUsers /> 2+ years experience
             </div>
+
           </div>
         </motion.div>
       </div>
@@ -302,10 +306,9 @@ const About = () => {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   
   const stats = [
-    { icon: <FaBriefcase />, value: "4+", label: "Years Experience" },
-    { icon: <FaCode />, value: "50+", label: "Projects Completed" },
-    { icon: <FaUsers />, value: "30+", label: "Happy Clients" },
-    { icon: <FaAward />, value: "15+", label: "Awards Won" },
+    { icon: <FaBriefcase />, value: "2+", label: "Years Experience" },
+    { icon: <FaCode />, value: "10+", label: "Projects Completed" },
+
   ];
 
   return (
@@ -331,14 +334,13 @@ const About = () => {
           >
             <h3>Who am I?</h3>
             <p>
-              I'm a passionate Full-Stack Developer with 4+ years of experience in building 
+              I'm a passionate Full-Stack Developer with 2+ years of experience in building 
               robust and scalable web applications. I love solving complex problems and 
               creating elegant solutions that make a difference.
             </p>
             <p>
               My journey in tech started with a curiosity about how things work, which led 
-              me to dive deep into programming. Today, I specialize in the MERN stack and 
-              cloud technologies, helping businesses bring their ideas to life.
+              me to dive deep into programming. Over the years, I've honed my skills in both frontend and backend technologies,
             </p>
             <div className="about-features">
               <div className="feature">
@@ -391,10 +393,9 @@ const Skills = () => {
       title: "Backend",
       icon: <FaServer />,
       skills: [
-        { name: "Node.js", level: 88, color: "#339933" },
-        { name: "Python", level: 85, color: "#3776AB" },
-        { name: "Express.js", level: 87, color: "#000000" },
-        { name: "Django", level: 80, color: "#092E20" },
+        { name: "Django", level: 88, color: "#092E20" },
+        { name: "JSF", level: 75, color: "#339933" },
+        { name: "javaFX", level: 70, color: "#000000" }
       ]
     },
     {
@@ -404,19 +405,34 @@ const Skills = () => {
         { name: "MongoDB", level: 85, color: "#47A248" },
         { name: "PostgreSQL", level: 82, color: "#336791" },
         { name: "MySQL", level: 80, color: "#4479A1" },
-        { name: "Redis", level: 75, color: "#DC382D" },
+        { name: "Oracle DB", level: 78, color: "#F80000" },
       ]
     },
+
+        {
+      title: "Programming Languages",
+      icon: <FaCode />,
+      skills: [
+        { name: "JavaScript", level: 90, color: "#F7DF1E" },
+        { name: "Python", level: 90, color: "#3776AB" },
+        { name: "Java", level: 70, color: "#5F8D4E" },
+        { name: "C++", level: 85, color: "#00599C" },
+        { name: "go", level: 80, color: "#00ADD8" },
+        { name: "PHP", level: 85, color: "#777BB4" },
+        { name: "Bash", level: 90, color: "#4EAA25" },
+      ]
+
+    },
     {
-      title: "DevOps & Cloud",
+      title: "Tools",
       icon: <FaCloud />,
       skills: [
-        { name: "Docker", level: 80, color: "#2496ED" },
-        { name: "AWS", level: 75, color: "#FF9900" },
-        { name: "Git/GitHub", level: 90, color: "#F05032" },
-        { name: "CI/CD", level: 78, color: "#2088FF" },
+        { name: "Vs Code", level: 95, color: "#2496ED" },
+        { name: "Git", level: 90, color: "#F05032" },
+        { name: "GitHub", level: 90, color: "#333" },
       ]
-    }
+    },
+
   ];
 
   return (
@@ -486,38 +502,28 @@ const Experience = () => {
   
   const experiences = [
     {
-      title: "Senior Full-Stack Developer",
-      company: "Tech Solutions Inc.",
-      period: "2022 - Present",
-      description: "Leading development of enterprise web applications, mentoring junior developers, and implementing best practices.",
+      title: "Full-Stack Developer",
+      company: "INSA",
+      period: "2024 - Present",
+      description: "Developed and maintained full-stack applications using React,Go and PoastgreSQL.",
       achievements: [
-        "Increased application performance by 40%",
-        "Led team of 5 developers",
-        "Implemented CI/CD pipeline"
+        "system development",
+        "team of 4 developers",
+        
       ]
     },
     {
-      title: "MERN Stack Developer",
-      company: "Digital Innovations",
-      period: "2020 - 2022",
-      description: "Developed and maintained full-stack applications using React, Node.js, and MongoDB.",
+      title: "IT Software Engineer",
+      company: "Ethiopia Customs Trade",
+      period: "July 2023",
+      description: "Networking maintenance asistance",
       achievements: [
-        "Built 10+ client projects",
-        "Reduced load time by 50%",
-        "Implemented real-time features"
+        "networking maintenance",
+        "IT support",
+        "troubleshooting"
       ]
     },
-    {
-      title: "Freelance Web Developer",
-      company: "Self-Employed",
-      period: "2019 - 2020",
-      description: "Worked with various clients to build custom web solutions and e-commerce platforms.",
-      achievements: [
-        "Completed 20+ successful projects",
-        "Maintained 100% client satisfaction",
-        "Delivered projects ahead of schedule"
-      ]
-    }
+
   ];
 
   return (
@@ -578,65 +584,103 @@ const Projects = () => {
   
   const projects = [
     {
-      title: 'AI-Powered E-Commerce',
+      title: 'Dental Clinic Management System',
       category: 'fullstack',
-      tech: ['React', 'Node.js', 'MongoDB', 'AI'],
-      desc: 'Smart e-commerce platform with AI recommendations and chatbot',
-      image: 'https://via.placeholder.com/400x300',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      tech: ['React', 'tailwind', 'ReactRouter'],
+      desc: 'A modern, fully responsive dental clinic management system built with React.js. Features a beautiful public-facing website with animated components, patient portal for booking appointments, and admin dashboard for managing appointments and patients.',
+      image: 'img/home.gif',
+      github: 'https://github.com/Bethelhem-Yirga/dental-clinic.git',
+      demo: 'https://mercy-dental-clinic.vercel.app/',
       featured: true
     },
+
     {
-      title: 'TaskFlow Pro',
+      title: 'Beauty Salon service website',
       category: 'frontend',
-      tech: ['React', 'Redux', 'Material-UI'],
-      desc: 'Advanced project management tool with real-time updates',
-      image: 'https://via.placeholder.com/400x300',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      tech: ['React', 'React Router 6', 'React Bootstrap', 'Vite'],
+      desc: 'A modern, responsive beauty salon website built with React, featuring glass morphism design, dark/light theme switching, and complete business functionality.',
+      image: 'img/beauti_home.gif',
+      github: 'https://github.com/Bethelhem-Yirga/beauty-salon1.git',
+      demo: 'https://beauti-salon.netlify.app/',
+      featured: true
+    },
+
+    {
+      title: 'Ethiopian Traditional Clothing E-commerce',
+      category: 'frontend',
+      tech: ['react', 'Google Maps API', 'Intersection Observer API'],
+      desc: 'Complete e-commerce platform for Habesha kemis (traditional dresses)',
+      image: 'img/habesha.gif',
+      github: 'https://github.com/Bethelhem-Yirga/-ETHIOPIAN-TRADITIONAL-DRESS',
+      demo: 'https://github.com/Bethelhem-Yirga/-ETHIOPIAN-TRADITIONAL-DRESS',
       featured: true
     },
     {
-      title: 'Social Analytics Dashboard',
+      title: 'Realestate Manegement System',
+      category: 'fullstack',
+      tech: ['Django', 'SQLite', 'Bootstrap'],
+      desc: 'Real estate management system with property listings and admin panel built with Django. Features a user-friendly interface for browsing properties, submitting inquiries, and an admin dashboard for managing listings and inquiries.',
+      image: 'img/real.jpeg',
+      github: 'https://github.com/Bethelhem-Yirga/Real-Estate-Management-System',
+      demo: 'https://github.com/Bethelhem-Yirga/Real-Estate-Management-System',
+      featured: true
+    },
+    
+    {
+      title: '🛡️ Cyber Hygiene Audit Tool',
+      category: 'frontend',
+      tech: ['React', 'Tailwind CSS'],
+      desc: 'Cyber Hygiene Audit Tool is a cutting-edge, cyberpunk-themed web application that transforms security assessment from a boring checklist into an engaging experience.',
+      image: 'img/cyber.gif',
+      github: 'https://github.com/Bethelhem-Yirga/cyber-hygiene-audit',
+      demo: 'https://github.com/Bethelhem-Yirga/cyber-hygiene-audit',
+      featured: false
+    },
+
+    {
+      title: 'ATM Simulator',
       category: 'backend',
-      tech: ['Python', 'Django', 'PostgreSQL', 'D3.js'],
-      desc: 'Analytics platform for social media metrics',
-      image: 'https://via.placeholder.com/400x300',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      tech: ['Java', 'JavaFX'],
+      desc: 'ATM Simulator is a desktop application built with Java and JavaFX that provides a realistic simulation of ATM operations.',
+      image: 'img/atm.jpeg',
+      github: 'https://github.com/Bethelhem-Yirga/ATM-Simulation',
+      demo: 'https://github.com/Bethelhem-Yirga/ATM-Simulation',
       featured: false
     },
     {
-      title: 'Real-Time Chat App',
+      title: 'AI Chatbot Builder Platform (In Development)',
       category: 'fullstack',
-      tech: ['Socket.io', 'Express', 'React'],
-      desc: 'Messaging app with video calls and file sharing',
-      image: 'https://via.placeholder.com/400x300',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
-      featured: true
-    },
-    {
-      title: 'Portfolio Generator',
-      category: 'frontend',
-      tech: ['React', 'Tailwind', 'Framer'],
-      desc: 'Drag-and-drop portfolio builder for developers',
-      image: 'https://via.placeholder.com/400x300',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      tech: ['React', 'Javascript', 'Axios', 'FastAPI (Python)','Uvicorn','Google Gemini API'],
+      desc: 'A full-stack, AI Chatbot Builder platform that enables businesses to create, deploy, and manage AI-powered customer support chatbots without writing a single line of code. Built from scratch to understand the complete architecture of conversational AI systems.',
+      image: 'img/ai1.png',
+      github: 'https://github.com/Bethelhem-Yirga/AI-CHATBOT-BUILDER',
+      demo: 'https://github.com/Bethelhem-Yirga/AI-CHATBOT-BUILDER',
       featured: false
     },
+
     {
-      title: 'API Gateway',
-      category: 'backend',
-      tech: ['Node.js', 'Redis', 'JWT'],
-      desc: 'Scalable API gateway with rate limiting',
-      image: 'https://via.placeholder.com/400x300',
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      title: 'eWNETA Music Platform',
+      category: 'frontend',
+      tech: ['Javascript', 'CSS', 'HTML'],
+      desc: 'Dynamic music streaming platform built with vanilla JavaScript, CSS, and HTML. Features a sleek, modern design with interactive elements and responsive layout.',
+      image: 'img/m.jpeg',
+      github: 'https://github.com/Bethelhem-Yirga/music-website',
+      demo: 'https://ewneta.netlify.app/',
+      featured: false
+    },
+
+    {
+      title: 'vehicle rental management system',
+      category: 'fullstack',
+      tech: ['jsf','Javascript', 'CSS', 'HTML'],
+      desc: 'A full-stack vehicle rental management system with a user-friendly interface and admin panel.',
+      image: 'img/car.jpeg',
+      github: 'https://github.com/Bethelhem-Yirga/car',
+      demo: 'https://github.com/Bethelhem-Yirga/car',
       featured: false
     }
+
+    
   ];
 
   const filters = ['all', 'frontend', 'backend', 'fullstack'];
@@ -728,8 +772,8 @@ const Stats = () => {
   
   const stats = [
     { icon: <FaCode />, value: 150000, label: "Lines of Code", suffix: "+" },
-    { icon: <FaUsers />, value: 50, label: "Happy Clients", suffix: "+" },
-    { icon: <FaRocket />, value: 100, label: "Projects", suffix: "+" },
+    { icon: <FaUsers />, value: 2, label: "Years of Experience", suffix: "+" },
+    { icon: <FaRocket />, value: 10, label: "Projects", suffix: "+" },
     { icon: <FaHeart />, value: 200, label: "Coffee Cups", suffix: "+" },
   ];
 
@@ -765,181 +809,6 @@ const Stats = () => {
   );
 };
 
-const Testimonials = () => {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [currentIndex, setCurrentIndex] = useState(0);
-  
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "CEO, TechStart",
-      image: "https://via.placeholder.com/100",
-      text: "John is an exceptional developer! He delivered our project ahead of schedule and exceeded our expectations. His technical expertise and problem-solving skills are outstanding.",
-      rating: 5
-    },
-    {
-      name: "Michael Chen",
-      role: "CTO, InnovateLabs",
-      image: "https://via.placeholder.com/100",
-      text: "Working with John was a pleasure. He's not only skilled in full-stack development but also great at communicating complex technical concepts. Highly recommended!",
-      rating: 5
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Product Manager, StartupHub",
-      image: "https://via.placeholder.com/100",
-      text: "John's attention to detail and commitment to quality is impressive. He consistently delivered high-quality code and was always proactive in suggesting improvements.",
-      rating: 5
-    }
-  ];
-
-  const nextTestimonial = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  return (
-    <section className="testimonials">
-      <div className="container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="testimonials-header"
-        >
-          <h2>What <span className="highlight">Clients Say</span></h2>
-          <div className="underline"></div>
-        </motion.div>
-        
-        <div className="testimonial-slider">
-          <motion.button 
-            className="slider-btn prev"
-            onClick={prevTestimonial}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            ←
-          </motion.button>
-          
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              className="testimonial-card"
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="testimonial-image">
-                <img src={testimonials[currentIndex].image} alt={testimonials[currentIndex].name} />
-              </div>
-              <div className="testimonial-content">
-                <p>"{testimonials[currentIndex].text}"</p>
-                <h4>{testimonials[currentIndex].name}</h4>
-                <div className="testimonial-role">{testimonials[currentIndex].role}</div>
-                <div className="testimonial-rating">
-                  {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                    <FaStar key={i} className="star" />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          
-          <motion.button 
-            className="slider-btn next"
-            onClick={nextTestimonial}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            →
-          </motion.button>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Blog = () => {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  
-  const blogPosts = [
-    {
-      title: "Building Scalable MERN Applications",
-      date: "Dec 15, 2024",
-      excerpt: "Best practices for structuring large-scale MERN applications...",
-      image: "https://via.placeholder.com/300x200",
-      readTime: "5 min read"
-    },
-    {
-      title: "Mastering React Hooks",
-      date: "Dec 10, 2024",
-      excerpt: "Deep dive into advanced React Hook patterns and optimizations...",
-      image: "https://via.placeholder.com/300x200",
-      readTime: "7 min read"
-    },
-    {
-      title: "Docker for Developers",
-      date: "Dec 5, 2024",
-      excerpt: "Containerize your development environment with Docker...",
-      image: "https://via.placeholder.com/300x200",
-      readTime: "6 min read"
-    }
-  ];
-
-  return (
-    <section className="blog">
-      <div className="container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="blog-header"
-        >
-          <h2>Latest <span className="highlight">Blog Posts</span></h2>
-          <div className="underline"></div>
-          <p>Sharing knowledge and experiences</p>
-        </motion.div>
-        
-        <div className="blog-grid">
-          {blogPosts.map((post, index) => (
-            <motion.article
-              key={index}
-              className="blog-card"
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="blog-image">
-                <img src={post.image} alt={post.title} />
-                <div className="read-time">{post.readTime}</div>
-              </div>
-              <div className="blog-content">
-                <div className="blog-date">{post.date}</div>
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
-                <motion.a 
-                  href="#" 
-                  className="read-more"
-                  whileHover={{ x: 5 }}
-                >
-                  Read More →
-                </motion.a>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -959,12 +828,21 @@ const Contact = () => {
     setIsLoading(true);
     
     // EmailJS configuration - replace with your credentials
-    const serviceID = 'YOUR_SERVICE_ID';
-    const templateID = 'YOUR_TEMPLATE_ID';
-    const userID = 'YOUR_USER_ID';
+    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    emailjs.init(publicKey);
+        // Prepare template parameters (must match your EmailJS template placeholders)
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+      reply_to: formData.email,
+    };
     
     try {
-      await emailjs.send(serviceID, templateID, formData, userID);
+      await emailjs.send(serviceID, templateID, templateParams);
       setIsSent(true);
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setIsSent(false), 5000);
@@ -977,9 +855,9 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: <FaEnvelope />, text: "john.doe@example.com", link: "mailto:john.doe@example.com" },
-    { icon: <FaGithub />, text: "/yourusername", link: "https://github.com/yourusername" },
-    { icon: <FaLinkedin />, text: "/in/yourprofile", link: "https://linkedin.com/in/yourprofile" },
+    { icon: <FaEnvelope />, text: "bethelhemyirga3@gmail.com", link: "mailto:bethelhemyirga3@gmail.com" },
+    { icon: <FaGithub />, text: "BethelHem-Yirga", link: "https://github.com/BethelHem-Yirga" },
+    { icon: <FaLinkedin />, text: "/in/bethelhem-yirga", link: "https://www.linkedin.com/in/bethelhem-yirga" },
   ];
 
   return (
@@ -1101,7 +979,7 @@ const Footer = () => {
           className="footer-content"
         >
           <div className="footer-text">
-            <h3>John Doe</h3>
+            <h3>Bethelhem-Yirga</h3>
             <p>Full-Stack Developer creating amazing web experiences</p>
           </div>
           <div className="footer-links">
@@ -1112,12 +990,12 @@ const Footer = () => {
             <a href="#contact">Contact</a>
           </div>
           <div className="footer-social">
-            <motion.a href="#" whileHover={{ y: -3 }}><FaGithub /></motion.a>
-            <motion.a href="#" whileHover={{ y: -3 }}><FaLinkedin /></motion.a>
-            <motion.a href="#" whileHover={{ y: -3 }}><FaTwitter /></motion.a>
+            <motion.a href="https://github.com/BethelHem-Yirga" whileHover={{ y: -3 }}><FaGithub /></motion.a>
+            <motion.a href="https://www.linkedin.com/in/bethelhem-yirga" whileHover={{ y: -3 }}><FaLinkedin /></motion.a>
+            <motion.a href="mailto:bethelhemyirga3@gmail.com" whileHover={{ y: -3 }}><FaEnvelope /></motion.a>
           </div>
           <div className="footer-bottom">
-            <p>&copy; {currentYear} John Doe. Built with <FaHeart /> using React & Framer Motion</p>
+            <p>&copy; {currentYear} Bethelhem-Yirga. Built with <FaHeart /> using React & Framer Motion</p>
           </div>
         </motion.div>
       </div>
