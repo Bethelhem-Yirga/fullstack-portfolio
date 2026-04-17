@@ -289,7 +289,7 @@ const Hero = () => {
         >
           <div className="image-wrapper">
             <div className="image-border"></div>
-            <img src="img/photo_5913237916199095908_y.jpg" alt="Profile" />
+            <img src="img/photo_5956506524840561757_y.jpg" alt="Profile" />
             <div className="floating-card card1">
               <FaCode /> 10+ Projects
             </div>
@@ -614,7 +614,7 @@ const Projects = () => {
       desc: 'Complete e-commerce platform for Habesha kemis (traditional dresses)',
       image: 'img/habesha.gif',
       github: 'https://github.com/Bethelhem-Yirga/-ETHIOPIAN-TRADITIONAL-DRESS',
-      demo: 'https://github.com/Bethelhem-Yirga/-ETHIOPIAN-TRADITIONAL-DRESS',
+      demo: 'https://ethio-habesha-kemis.netlify.app/',
       featured: true
     },
     {
