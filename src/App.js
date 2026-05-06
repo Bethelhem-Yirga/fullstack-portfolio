@@ -614,7 +614,7 @@ const Projects = () => {
       desc: 'Complete e-commerce platform for Habesha kemis (traditional dresses)',
       image: 'img/habesha.gif',
       github: 'https://github.com/Bethelhem-Yirga/-ETHIOPIAN-TRADITIONAL-DRESS',
-      demo: 'https://ethiopian-traditional-dress.vercel.app/',
+      demo: 'https://ethio-habesha-kemis.netlify.app/products',
       featured: true
     },
     {
