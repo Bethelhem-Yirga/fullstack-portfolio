@@ -510,7 +510,7 @@ const Experience = () => {
       description: "Developed and maintained full-stack applications using React,Go and PoastgreSQL.",
       achievements: [
         "system development",
-        "team of 4 developers",
+        "team of developers",
         
       ]
     },
