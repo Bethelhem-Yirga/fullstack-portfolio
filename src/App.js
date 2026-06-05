@@ -396,6 +396,8 @@ const Skills = () => {
       icon: <FaServer />,
       skills: [
         { name: "Django", level: 88, color: "#092E20" },
+        { name: "Node.js", level: 88, color: "#339933" },
+        { name: "Express.js", level: 85, color: "#000000" },
         { name: "JSF", level: 75, color: "#339933" },
         { name: "javaFX", level: 70, color: "#000000" }
       ]
